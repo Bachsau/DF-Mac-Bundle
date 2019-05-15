@@ -1,0 +1,28 @@
+#!/bin/sh
+cd "$HOME"
+if [ -r '/etc/profile' ]; then
+	. '/etc/profile'
+fi
+if [ -n "$BASH_VERSION" ] && [ -r "$HOME/.bash_profile" ]; then
+	. "$HOME/.bash_profile"
+elif [ -r "$HOME/.profile" ]; then
+	. "$HOME/.profile"
+fi
+cd "$HOME"
+if [ -x 'Library/Application Support/Dwarf Fortress/dwarfort.exe' ]; then
+	cd 'Library/Application Support/Dwarf Fortress'
+	if grep -q '\[PRINT_MODE:TEXT\]' data/init/init.txt; then
+		exec osascript -e 'display alert "Text mode is not supported" message "\"PRINT_MODE\" is set to \"TEXT\" in \"data/init/init.txt\". Change this or run from a terminal window." as critical' >/dev/null
+	fi
+	OSREV=$(uname -r | cut -d. -f1)
+	if [ "$OSREV" -ge 11 ]; then
+		export DYLD_LIBRARY_PATH="$PWD/libs"
+		export DYLD_FRAMEWORK_PATH="$PWD/libs"
+	else
+		export DYLD_FALLBACK_LIBRARY_PATH="$PWD/libs"
+		export DYLD_FALLBACK_FRAMEWORK_PATH="$PWD/libs"
+	fi
+	exec ./dwarfort.exe 2>>errorlog.txt >>outputlog.txt
+else
+	exec osascript -e 'display alert "Application not found" message "Place a copy of Dwarf Fortress in \"" & (system attribute "HOME") & "/Library/Application Support/Dwarf Fortress\" and try again." as critical' >/dev/null
+fi
