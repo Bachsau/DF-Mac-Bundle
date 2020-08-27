@@ -15,7 +15,7 @@ Installation
 1. Download the Mac version of Dwarf Fortress:
    http://www.bay12games.com/dwarves/
 2. Download the launcher:
-   https://github.com/Bachsau/DF-Mac-Launcher/archive/v2.1.1.zip
+   https://github.com/Bachsau/DF-Mac-Launcher/archive/v2.1.2.zip
 3. Extract the game files to "Library/Application Support/Dwarf Fortress"
    within your home directory
 4. Put "Dwarf Fortress.app" in your "Applications" folder or wherever you like
