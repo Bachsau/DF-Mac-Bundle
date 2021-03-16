@@ -3,11 +3,7 @@ cd -- "$HOME"
 if [ -r /etc/profile ]; then
 	. /etc/profile
 fi
-if [ -n "$BASH_VERSION" -a -r "$HOME/.bash_profile" ]; then
-	. "$HOME/.bash_profile"
-elif [ -n "$BASH_VERSION" -a -r "$HOME/.bash_login" ]; then
-	. "$HOME/.bash_login"
-elif [ -r "$HOME/.profile" ]; then
+if [ -r "$HOME/.profile" ]; then
 	. "$HOME/.profile"
 fi
 cd -- "$HOME"
